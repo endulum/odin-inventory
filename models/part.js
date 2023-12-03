@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PartSchema = new Schema({
-  name: { type: String, required: true, minLength: 1, maxLength: 32 },
-  description: { type: String, required: true, minLength: 1, maxLength: 512 },
+  name: { type: String, required: true, minLength: 1, maxLength: 64 },
+  description: { type: String, minLength: 1, maxLength: 512 },
   price: { type: Number, required: true, minValue: 0 },
   stock: { type: Number, required: true, minValue: 0 },
   category: { type: Schema.ObjectId, ref: 'Category', required: true }
