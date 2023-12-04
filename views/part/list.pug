@@ -1,0 +1,7 @@
+extends ../layout 
+
+block content 
+  ul 
+    each part in parts
+      li
+        a(href=part.url) #{part.name}

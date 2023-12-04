@@ -3,11 +3,22 @@ const Category = require('../models/category');
 const asyncHandler = require("express-async-handler");
 
 exports.category_list = asyncHandler(async (req, res, next) => {
-  res.send('overview of all categories');
+  const allCategories = await Category.find({}).exec();
+
+  res.render('category/list', { 
+    title: 'All Categories',
+    categories: allCategories,
+  });
 });
 
 exports.category_detail = asyncHandler(async (req, res, next) => {
-  res.send('individual category in detail, including item list');
+  const thisCategory = await Category.findById(req.params.categoryId).populate('items').exec();
+
+  res.render('category/detail', {
+    title: `Viewing Category: ${thisCategory.name}`,
+    category: thisCategory,
+    parts: thisCategory.items
+  })
 });
 
 exports.category_create_get = asyncHandler(async (req, res, next) => {

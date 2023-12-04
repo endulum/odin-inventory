@@ -1,0 +1,10 @@
+extends ../layout 
+
+block content 
+  p= category.description 
+  ul 
+   each part in parts 
+    li 
+      a(href=part.url) #{part.name}
+   else 
+      p There are no parts for this category.

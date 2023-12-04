@@ -6,7 +6,7 @@ const categoryController = require('../controllers/categoryController');''
 
 router.route('/')
   .get((req, res, next) => {
-    res.render('index', { title: 'Computer Part Store' })
+    res.render('index', { title: 'Index' })
   });
 
 router.route('/categories')

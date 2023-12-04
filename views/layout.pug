@@ -4,4 +4,11 @@ html(lang='en')
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    header 
+      h1 Computer Part Store
+    nav 
+      a(href='/categories') All Categories 
+      a(href='/parts') All parts 
+    main 
+      h2= title
+      block content
