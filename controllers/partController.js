@@ -1,5 +1,6 @@
 const Part = require('../models/part');
 const Category = require('../models/category');
+const mongoose = require('mongoose');
 const asyncHandler = require("express-async-handler");
 
 exports.part_list = asyncHandler(async (req, res, next) => {
@@ -12,7 +13,18 @@ exports.part_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.part_detail = asyncHandler(async (req, res, next) => {
-  const thisPart = await Part.findById(req.params.partId).populate('category').exec();
+  let thisPart;
+  try {
+    thisPart = await Part.findById(req.params.id).populate('category').exec();
+  } catch {
+    thisPart = null;
+  }
+
+  if (thisPart === null) {
+    const err = new Error('Part not found.');
+    err.status = 404;
+    return next(err);
+  }
 
   res.render('part/detail', {
     title: `Viewing Part: ${thisPart.name}`,

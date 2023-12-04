@@ -12,7 +12,18 @@ exports.category_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.category_detail = asyncHandler(async (req, res, next) => {
-  const thisCategory = await Category.findById(req.params.categoryId).populate('items').exec();
+  let thisCategory;
+  try {
+    thisCategory = await Category.findById(req.params.id).populate('items').exec();
+  } catch {
+    thisCategory = null;
+  }
+
+  if (thisCategory === null) {
+    const err = new Error('Category not found.');
+    err.status = 404;
+    return next(err);
+  }
 
   res.render('category/detail', {
     title: `Viewing Category: ${thisCategory.name}`,
