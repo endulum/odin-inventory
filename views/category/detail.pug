@@ -1,10 +1,12 @@
 extends ../layout 
 
 block content 
+  a(href=`/category/${category._id}/update`) Update This Category
   p= category.description 
   ul 
    each part in parts 
     li 
       a(href=part.url) #{part.name}
    else 
-      p There are no parts for this category.
+      p 
+        i There are no parts for this category.
