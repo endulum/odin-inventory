@@ -32,7 +32,7 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
     title: `Viewing Category: ${thisCategory.name}`,
     category: thisCategory,
     parts: allPartsInCategory 
-  })
+  });
 });
 
 exports.category_create_get = asyncHandler(async (req, res, next) => {
