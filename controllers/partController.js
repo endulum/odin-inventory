@@ -207,9 +207,45 @@ exports.part_update_post = [
 ]
 
 exports.part_delete_get = asyncHandler(async (req, res, next) => {
-  res.send('confirmation page for deleting a part');
+  let thisPart;
+  try {
+    thisPart = await Part.findById(req.params.id).populate('category').exec();
+  } catch {
+    thisPart = null;
+  }
+
+  if (thisPart === null) {
+    const err = new Error('Part not found.');
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render('part/delete', {
+    title: 'Deleting Part',
+    part: thisPart
+  })
 });
 
 exports.part_delete_post = asyncHandler(async (req, res, next) => {
-  res.send('should delete the part and redirect to overview');
+  let thisPart;
+  try {
+    thisPart = await Part.findById(req.params.id).populate('category').exec();
+  } catch {
+    thisPart = null;
+  }
+
+  if (thisPart === null) {
+    const err = new Error('Part not found.');
+    err.status = 404;
+    return next(err);
+  }
+
+  await Part.findByIdAndDelete(req.body.id);
+
+  // remove references to this item within the item's category
+  const partCategory = await Category.findOne({ name: thisPart.category.name });
+  partCategory.items = await Part.find({ category: partCategory });
+  await Category.findByIdAndUpdate(partCategory._id, partCategory);
+  
+  res.redirect('/parts/');
 });
