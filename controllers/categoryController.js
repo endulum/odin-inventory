@@ -129,9 +129,43 @@ exports.category_update_post = [
 ];
 
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
-  res.send('confirmation page for deleting a category');
+  let thisCategory;
+  try {
+    thisCategory = await Category.findById(req.params.id).populate('items').exec();
+  } catch {
+    thisCategory = null;
+  }
+
+  if (thisCategory === null) {
+    const err = new Error('Category not found.');
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render('category/delete', {
+    title: 'Deleting Category',
+    category: thisCategory,
+  });
 });
 
 exports.category_delete_post = asyncHandler(async (req, res, next) => {
-  res.send('should delete the category and redirect to overview');
+  let thisCategory;
+  try {
+    thisCategory = await Category.findById(req.params.id).populate('items').exec();
+  } catch {
+    thisCategory = null;
+  }
+
+  if (thisCategory === null) {
+    const err = new Error('Category not found.');
+    err.status = 404;
+    return next(err);
+  }
+
+  thisCategory.items.forEach(async item => {
+    await Part.findByIdAndDelete(item._id)
+  });
+
+  await Category.findByIdAndDelete(thisCategory._id);
+  res.redirect('/categories');
 });

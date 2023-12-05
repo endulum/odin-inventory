@@ -1,0 +1,22 @@
+extends ../layout 
+
+block content 
+  p Are you sure you want to delete the category 
+    b= category.name 
+    | ?
+  if category.items.length > 0
+    p Doing this will also delete the following items in this category: 
+    ul 
+      each item in category.items 
+        li 
+          a(href=item.url) #{item.name}
+  form(method='POST' action='')
+    input#id(
+      type='hidden'
+      name='id'
+      required='true'
+      value=category._id 
+    )
+    button(
+      type='submit'
+    ) Delete
