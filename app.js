@@ -15,6 +15,7 @@ dotenv.config();
 
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
+console.log(process.env.MONGO);
 const mongoDB = process.env.MONGO;
 
 main().catch(e => console.log(e));
