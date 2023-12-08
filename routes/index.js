@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const partController = require('../controllers/partController');
-const categoryController = require('../controllers/categoryController');''
+const categoryController = require('../controllers/categoryController');
+const resetController = require('../controllers/resetController');
 
 router.route('/')
   .get((req, res, next) => {
     res.render('index', { title: 'Index' })
   });
-
 
 router.route('/category/new')
   .get(categoryController.category_create_get)
@@ -24,7 +24,6 @@ router.route('/category/:id')
 router.route('/categories')
   .get(categoryController.category_list);
 
-
 router.route('/part/new')
   .get(partController.part_create_get)
   .post(partController.part_create_post);
@@ -38,5 +37,9 @@ router.route('/part/:id')
   .get(partController.part_detail);
 router.route('/parts')
   .get(partController.part_list);
+
+router.route('/reset')
+  .get(resetController.reset_get)
+  .post(resetController.reset_post);
 
 module.exports = router;

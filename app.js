@@ -8,14 +8,11 @@ const helmet = require("helmet");
 
 const app = express();
 
-
-
 const dotenv = require('dotenv');
 dotenv.config();
 
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-console.log(process.env.MONGO);
 const mongoDB = process.env.MONGO;
 
 main().catch(e => console.log(e));
@@ -28,7 +25,7 @@ app.set('view engine', 'pug');
 const RateLimit = require("express-rate-limit");
 const limiter = RateLimit({
   windowMs: 1 * 60 * 1000,
-  max: 30,
+  max: 60,
 });
 app.use(limiter);
 
