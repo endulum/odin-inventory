@@ -1,6 +1,10 @@
 extends ../layout 
 
 block content 
+  p 
+    a(href=`${part.url}/update`) Update Part
+  p 
+    a(href=`${part.url}/delete`) Delete Part
   if part.description
     p= part.description 
   else 
@@ -18,7 +22,4 @@ block content
   p 
     | Category: 
     a(href=`${part.category.url}`) #{part.category.name}
-  p 
-    a(href=`${part.url}/update`) Update Part
-  p 
-    a(href=`${part.url}/delete`) Delete Part
+  

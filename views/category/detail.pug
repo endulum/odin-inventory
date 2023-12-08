@@ -1,7 +1,10 @@
 extends ../layout 
 
 block content 
-  a(href=`/category/${category._id}/update`) Update This Category
+  p 
+    a(href=`/category/${category._id}/update`) Update Category
+  p 
+    a(href=`${category.url}/delete`) Delete Category
   p= category.description 
   if parts.length > 0
     ul 
@@ -11,6 +14,5 @@ block content
   else 
     p 
       i There are no parts for this category.
-  p 
-    a(href=`${category.url}/delete`) Delete Category
+    
     
