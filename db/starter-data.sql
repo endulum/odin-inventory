@@ -1,0 +1,116 @@
+CREATE TABLE IF NOT EXISTS categories (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(32) NOT NULL,
+  description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS parts (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(128) NOT NULL,
+  description TEXT,
+  price DECIMAL(12, 2),
+  in_stock INTEGER NOT NULL,
+  category_id INTEGER REFERENCES categories
+);
+
+INSERT INTO categories (name, description) VALUES
+  (
+    'CPU',
+    'A CPU (Central Processing Unit) or Processor is the part of a computer that is responsible for performing calculations. A CPU in a computer is analogous to that of a brain in a person or an engine in a car. Fast CPUs are generally desirable because they allow computers to complete tasks quickly. There are several different classes of CPU including Desktop and Laptop. Laptop CPUs need to be as energy efficient as possible whereas Desktop CPUs are more performance focused.'
+  ), (
+    'GPU',
+    'The GPU evolved as a complement to its close cousin, the CPU (central processing unit). While CPUs have continued to deliver performance increases through architectural innovations, faster clock speeds, and the addition of cores, GPUs are specifically designed to accelerate computer graphics workloads. When shopping for a system, it can be helpful to know the role of the CPU vs. GPU so you can make the most of both.'
+  ), (
+    'RAM',
+    'RAM (Random Access Memory) is the hardware in a computing device where the operating system (OS), application programs and data in current use are kept so they can be quickly reached by the device''s processor. RAM is the main memory in a computer. It is much faster to read from and write to than other kinds of storage, such as a hard disk drive (HDD), solid-state drive (SSD) or optical drive.'
+  ), (
+    'SSD',
+    'An SSD, or solid-state drive, is a type of storage device used in computers. This non-volatile storage media stores persistent data on solid-state flash memory. SSDs replace traditional hard disk drives (HDDs) in computers and perform the same basic functions as a hard drive. But SSDs are significantly faster in comparison. With an SSD, the device''s operating system will boot up more rapidly, programs will load quicker and files can be saved faster.'
+  )
+;
+
+INSERT INTO parts (name, description, price, in_stock, category_id) VALUES
+-- CPUs
+  (
+    'Intel Core i5-13600K',
+    'Intel''s 13th gen. Raptor Lake CPUs offer around 10% faster gaming and 45% faster multi-core performance than their predecessors. The new CPUs are compatible with DDR4 memory and Z690/B660 ($150) motherboards. New high-end gaming builders need look no further than the 13600K. The 13600K beats AMD''s flagship 7950X in gaming and almost matches the 7900X in multi-core performance.',
+    270.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    1
+  ),
+  (
+    'Intel Core i9-13900K',
+    'Intel''s 13th gen. Raptor Lake CPUs offer around 10% faster gaming and 45% faster multi-core performance than their predecessors. The new CPUs are compatible with DDR4 memory and Z690/B660 ($150) motherboards. New high-end gaming builders need look no further than the 13600K. The 13600K beats AMD''s flagship 7950X in gaming and almost matches the 7900X in multi-core performance.',
+    543.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    1
+  ),
+  (
+    'AMD Ryzen 5 3600',
+    'AMD''s Ryzen 5 3600 is a 6-core, 12-threaded processor which succeeds the Ryzen 5 2600 improving upon it by 13% in terms of overclocked performance. The 3600 is in competition with Intel''s 6-core i5-9600K. AMD continues to push the multi-core performance envelope: benchmarks show that the 3600 has a 27% overclocked 64-core lead over the 9600K but that the i5-9600K leads by 14% on single to hex core workloads which translates to 10% higher EFps in most of the today''s top games (e.g. PUBG, GTAV and CSGO).',
+    113.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    1
+  ),
+-- GPUs
+  (
+    'Nvidia RTX 4060',
+    'The RTX 4060 is based on Nvidia''s Ada Lovelace architecture. It features 3,072 cores with base / boost clocks of 1.8 / 2.5 GHz, 8 GB of memory, a 128-bit memory bus, 24 3rd gen RT cores, 96 4th gen Tensor cores, DLSS 3 (with frame generation), a TDP of 115W and a launch price of $300 USD. The 4060 is around 20% faster than the 3060 at a 10% lower MSRP and offers similar performance to the 3060-Ti at a 30% lower MSRP. 8GB of memory is more than enough for most gamers, who are best off playing at 1080p.',
+    295.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    2
+  ),
+  (
+    'Nvidia GTX 1660-Ti',
+    'The GTX 1660 Ti the latest mid-range and mid-priced graphics card for gamers, succeeding the now two year old GTX 1060 6GB. As NVIDIA have tried to imply with their naming convention, performance of this 16 series GPU lies somewhere between their 10 series and 20 series but the 16 does not contain any of the recent RTX cores, which given the lack of RTX ready games, by itself is no hindrance at all.',
+    349.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    2
+  ), (
+    'AMD RX 580',
+    'The RX 580 is AMD''s latest flagship GPU which is based on a second generation Polaris architecture. The 580 is a refresh of the RX 480 which was released just 10 months ago. Modifications to the architecture have resulted in improved thermals and increased clock speeds by around 10%. The RX 580 will come with either 4GB or 8GB of high-bandwidth GDDR5 memory.',
+    160.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    2
+  ),
+-- RAM
+  (
+    'Corsair Vengeance LPX DDR4 3200 C16 2x8GB',
+    'For both gamers and desktop users 2x8GB 3200Mhz C16 RAM sits in the sweet spot for price to performance. Given its prolific popularity, the Corsair Vengeance LPX kit is almost guaranteed to work with every motherboard.',
+    42.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    3
+  ), (
+    'G.SKILL Ripjaws V DDR4 3200 C16 2x8GB',
+    null,
+    40.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    3
+  ), (
+    'HyperX Fury DDR4 2133 C14 1x8GB',
+    null,
+    24.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    3
+  ),
+-- SSD
+  (
+    'HyperX Savage 240GB',
+    'The 240GB Kingston HyperX Savage sports a Phison PS3110 controller. This marks a welcome departure from Kingston''s use of Sandforce 2281 controllers and for the first time in years gives Kinston a shot at competing in the enthusiast/performance segment of the SSD market. Comparing the HyperX Savage and Fury shows that the new Phision controller has an effective speed that is around 40% faster than the Sandforce based Fury.',
+    123.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    4
+  ), (
+    'Crucial MV500 250GB',
+    'The MX500 is Crucial''s current flagship consumer SATA SSD featuring their latest second generation 64-layer 3D TLC NAND. It''s available in 250 GB, 500 GB, 1 TB and 2 TB capacities in a 2.5-inch form factor. All but the 2 TB version will also be available in M.2 (2280) form in the future. The MX500 features a Silicon Motion SM2258 controller which is a change from the Marvell 88SS1074 controller featured in the MX300 (it''s nearly two year old predecessor).',
+    30.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    4
+  ), (
+    'Samsung 850 Evo 120GB',
+    null,
+    80.00,
+    (SELECT FLOOR(RANDOM() * 20 + 1)::INT),
+    4
+  )
+;
