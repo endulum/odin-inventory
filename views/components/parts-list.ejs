@@ -1,0 +1,12 @@
+<ul class="parts-list">
+  <% locals.parts.forEach((part) => { %>
+    <li class="parts-item">
+      <h2><%= part.name %></h2>
+      <small><%= part.category %></small>
+      <div class="space-apart">
+        <p>$<%= part.price %></p>
+        <p><%= part.in_stock %> in stock</p>
+      </div>
+    </li>
+  <% }) %>
+</ul>

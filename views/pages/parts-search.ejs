@@ -1,0 +1,23 @@
+<h1>Search Parts</h1>
+
+<form action="/parts" method="get">
+  <label for="name">Part Name: </label>
+  <input type="text" name="name" id="name" value=<%= locals.query.name %>>
+  <br>
+  <label for="category">Category: </label>
+  <select name="category" id="category">
+    <option value="">Any</option>
+    <% locals.categories.forEach((category) => { %>
+      <option value=<%= category.name %> <%= category.name === locals.query.category && 'selected' %>>
+        <%= category.name %>
+      </option>
+    <% }) %>
+  </select>
+  <br>
+  <input type="checkbox" name="isInStock" id="isInStock" <%= locals.query.isInStock === 'on' && 'checked' %>>
+  <label for="isInStock">Is in stock</label>
+  <br>
+  <button type="submit">Search</button>
+</form>
+
+<%- include('../components/parts-list') %>
