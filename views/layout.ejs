@@ -6,6 +6,26 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <%- include(`${page}`) %>
+    <header>
+      <div class="logo">
+        <a href="/" class="nav-link">
+          <b>Computer Parts Store</b>
+        </a>
+      </div>
+      <nav>
+        <ul class="nav-list">
+          <li><a class="nav-link" href="/parts">All Parts</a></li>
+          <li><a class="nav-link" href="/categories">All Categories</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <%- include(`${page}`) %>
+    </main>
+    <footer>
+      <small>
+        Part and category info from <a href="https://www.userbenchmark.com/">UserBenchmark</a>.
+      </small>
+    </footer>
   </body>
 </html>
