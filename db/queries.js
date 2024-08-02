@@ -34,9 +34,8 @@ queries.getParts = async function(reqQuery) {
     if ('sortBy' in reqQuery && reqQuery.sortBy !== '')
       sql += `\nORDER BY ${reqQuery.sortBy}`
     else sql += `\nORDER BY parts.name ASC`
-  }
+  } else sql += `\nORDER BY parts.name ASC`
 
-  console.log
   const { rows } = await queryWithCatch(sql)
   return rows
 }

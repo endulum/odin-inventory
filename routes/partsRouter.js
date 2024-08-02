@@ -3,7 +3,7 @@ const partController = require('../controllers/partController')
 
 const partsRouter = express.Router()
 
-partsRouter.get('/', partController.getAllParts)
+partsRouter.get('/', partController.searchParts)
 partsRouter.get('/:id', partController.getPartById)
 
 module.exports = partsRouter

@@ -3,8 +3,10 @@ const queries = require('../db/queries')
 
 const partController = {}
 
-partController.getAllParts = asyncHandler(async (req, res) => {
-  const parts = await queries.getParts(req.query)
+partController.searchParts = asyncHandler(async (req, res) => {
+  const parts = await queries.getParts(
+    Object.keys(req.query).length > 0 && req.query
+  )
   const categories = await queries.getAllCategories()
   res.locals.parts = parts
   res.locals.categories = categories
