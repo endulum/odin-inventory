@@ -2,8 +2,12 @@ const pool = require('./pool')
 
 const queries = {}
 
+async function queryWithCatch(q) {
+  return pool.query(q).catch(e => console.error(e))
+}
+
 queries.getAllCategories = async function() {
-  const { rows } = await pool.query('SELECT * FROM categories')
+  const { rows } = await queryWithCatch('SELECT * FROM categories')
   return rows
 }
 
@@ -18,6 +22,7 @@ queries.getAllParts = async function(reqQuery) {
   if ('isInStock' in reqQuery && reqQuery.isInStock === 'on') {
     whereClauses.push(`in_stock > 0`)
   }
+
   const whereString = whereClauses.join(` AND `)
 
   const sql = `
@@ -27,12 +32,12 @@ queries.getAllParts = async function(reqQuery) {
     ${whereString && whereString.length !== 0 ? `WHERE ${whereString}` : ''}
   ;`
 
-  const { rows } = await pool.query(sql)
+  const { rows } = await queryWithCatch(sql).catch(e => console.log(e))
   return rows
 }
 
 queries.getCategoryById = async function(id) {
-  const { rows } = await pool.query(
+  const { rows } = await queryWithCatch(
     'SELECT * FROM categories WHERE id = $1',
     [id]
   )
@@ -40,7 +45,7 @@ queries.getCategoryById = async function(id) {
 }
 
 queries.getPartById = async function(id) {
-  const { rows } = await pool.query(
+  const { rows } = await queryWithCatch(
     'SELECT * FROM parts WHERE id = $1',
     [id]
   )
