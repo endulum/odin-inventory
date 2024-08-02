@@ -1,10 +1,10 @@
 <h1>Search Parts</h1>
 
-<form action="/parts" method="get">
-  <label for="name">Part Name: </label>
+<form action="/parts" method="get" class="parts-search">
+  <label for="name"><b>Part name</b></label>
   <input type="text" name="name" id="name" value=<%= locals.query.name %>>
   
-  <label for="category">Category: </label>
+  <label for="category"><b>Category</b></label>
   <select name="category" id="category">
     <option value="">Any</option>
     <% locals.categories.forEach((category) => { %>
@@ -14,10 +14,9 @@
     <% }) %>
   </select>
   
-  <input type="checkbox" name="isInStock" id="isInStock" <%= locals.query.isInStock === 'on' && 'checked' %>>
-  <label for="isInStock">Is in stock</label>
+  
 
-  <label for="sortBy">Sort by:</label>
+  <label for="sortBy"><b>Sort by</b></label>
   <select name="sortBy" id="sortBy">
     <% [
       { value: 'name ASC', label: 'Name (A - Z)' },
@@ -33,8 +32,17 @@
       </option>
     <% }) %>
   </select>
+
+  <div style="grid-column: 2 / 3; display: flex; flex-direction: row; justify-content: space-between;">
+    <label for="isInStock" style="display: flex; align-items: center; gap: 0.5rem;">
+      <input type="checkbox" name="isInStock" id="isInStock" <%= locals.query.isInStock === 'on' && 'checked' %>>
+      <span>Is in stock</span>
+    </label>
+
+    <button type="submit"><b>Search</b></button>
+  </div>
   
-  <button type="submit">Search</button>
+  
 </form>
 
 <%- include('../components/parts-list') %>
