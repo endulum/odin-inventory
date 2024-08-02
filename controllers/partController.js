@@ -4,7 +4,7 @@ const queries = require('../db/queries')
 const partController = {}
 
 partController.getAllParts = asyncHandler(async (req, res) => {
-  const parts = await queries.getAllParts(req.query)
+  const parts = await queries.getParts(req.query)
   const categories = await queries.getAllCategories()
   res.locals.parts = parts
   res.locals.categories = categories

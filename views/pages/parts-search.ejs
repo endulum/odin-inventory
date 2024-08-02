@@ -3,7 +3,7 @@
 <form action="/parts" method="get">
   <label for="name">Part Name: </label>
   <input type="text" name="name" id="name" value=<%= locals.query.name %>>
-  <br>
+  
   <label for="category">Category: </label>
   <select name="category" id="category">
     <option value="">Any</option>
@@ -13,10 +13,27 @@
       </option>
     <% }) %>
   </select>
-  <br>
+  
   <input type="checkbox" name="isInStock" id="isInStock" <%= locals.query.isInStock === 'on' && 'checked' %>>
   <label for="isInStock">Is in stock</label>
-  <br>
+
+  <label for="sortBy">Sort by:</label>
+  <select name="sortBy" id="sortBy">
+    <% [
+      { value: 'name ASC', label: 'Name (A - Z)' },
+      { value: 'name DESC', label: 'Name (Z - A)' },
+      { value: 'price DESC', label: 'Price (highest to lowest)' },
+      { value: 'price ASC', label: 'Price (lowest to highest)' },
+    ].forEach((sortOption) => { %>
+      <option 
+        value="<%= sortOption.value %>"
+        <%= locals.query.sortBy === sortOption.value && 'selected' %>
+      >
+        <%= sortOption.label %>
+      </option>
+    <% }) %>
+  </select>
+  
   <button type="submit">Search</button>
 </form>
 
