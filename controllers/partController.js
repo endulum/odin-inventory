@@ -13,7 +13,7 @@ partController.searchParts = asyncHandler(async (req, res) => {
   res.locals.query = req.query
   return res.render('layout', {
     page: 'pages/parts-search',
-    title: 'Search Parts'
+    title: 'Browse Parts'
   })
 })
 

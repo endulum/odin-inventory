@@ -83,3 +83,23 @@ footer {
     font-size: 1.25rem;
   }
 }
+
+.categories-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+}
+
+.categories-item {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  > p {
+    width: calc(100%);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+}
