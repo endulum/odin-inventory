@@ -3,7 +3,11 @@
   <% locals.parts.forEach((part) => { %>
     <li class="parts-item">
       <div>
-        <h2><%= part.name %></h2>
+        <h2>
+          <a href="/parts/<%= part.id %>">
+            <%= part.name %>
+          </a>
+        </h2>
         <small><%= part.category %></small>
       </div>
       <div style="display: flex; flex-direction: row; justify-content: space-between;">

@@ -30,12 +30,12 @@ h1 {
   list-style: none;
 }
 
-.nav-link {
+a {
   color: #666;
   text-decoration: none;
 }
 
-.nav-link:hover {
+a:hover {
   text-decoration: underline;
 }
 

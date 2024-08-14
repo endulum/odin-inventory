@@ -1,0 +1,46 @@
+<h2>Viewing part: <span style="font-weight: normal;"><%= part.name %></span></h2>
+
+<!-- <p>In category 
+  
+</p> -->
+
+<ul>
+  <li>
+    <b>Category: </b>
+    <% if (part.category_id !== null) { %>
+      <a href='/categories/<%= part.category_id %>'>
+        <%= part.category_name %>
+      </a>
+    <% } else { %>
+      <i>No category listed</i>
+    <% } %>
+  </li>
+
+  <li>
+    <b>Price: </b>
+    <% if (part.price !== null) { %>
+      $<%= part.price %>
+    <% } else { %>
+      <i>No price listed</i>
+    <% } %>
+  </li>
+
+  <li>
+    <b>In stock: </b>
+    <% if (part.in_stock !== 0) { %>
+      <%= part.in_stock %> in stock
+    <% } else { %>
+      <i>Out of stock</i>
+    <% } %>
+  </li>
+</ul>
+
+<% if (part.description !== null) { %>
+  <p><%= part.description %></p>
+<% } else { %>
+  <p><i>No description was provided for this item.</i></p>
+<% } %>
+
+<p>
+  Return to <a href="/parts">Browse Parts</a>
+</p>

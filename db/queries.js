@@ -2,8 +2,8 @@ const pool = require('./pool')
 
 const queries = {}
 
-async function queryWithCatch(sql) {
-  return pool.query(sql).catch(e => console.error(e))
+async function queryWithCatch(...args) {
+  return pool.query(...args).catch(e => console.error(e))
 }
 
 queries.getAllCategories = async function() {
@@ -14,7 +14,7 @@ queries.getAllCategories = async function() {
 queries.getParts = async function(reqQuery) {
   // first, query every part
   let sql = `
-  SELECT parts.name AS name, categories.name AS category, price, in_stock
+  SELECT parts.name AS name, parts.id AS id, categories.name AS category, price, in_stock
     FROM parts JOIN categories 
     ON (parts.category_id = categories.id)`
 
@@ -49,10 +49,13 @@ queries.getCategoryById = async function(id) {
 }
 
 queries.getPartById = async function(id) {
-  const { rows } = await queryWithCatch(
-    'SELECT * FROM parts WHERE id = $1',
-    [id]
-  )
+  const sql = `
+  SELECT parts.name AS name, parts.id AS id, categories.name AS category_name, categories.id AS category_id, parts.description AS description, price, in_stock
+    FROM parts JOIN categories 
+    ON (parts.category_id = categories.id)
+    WHERE parts.id = $1`
+  
+  const { rows } = await queryWithCatch(sql, [id])
   return rows[0]
 }
 

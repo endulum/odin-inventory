@@ -19,9 +19,12 @@ partController.searchParts = asyncHandler(async (req, res) => {
 
 partController.getPartById = asyncHandler(async (req, res) => {
   const part = await queries.getPartById(req.params.id)
-  console.log(part)
   if (!part) return res.sendStatus(404)
-  return res.sendStatus(200)
+  res.locals.part = part
+  return res.render('layout', {
+    page: 'pages/part',
+    title: `Part Details`
+  })
 })
 
 module.exports = partController
