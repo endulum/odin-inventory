@@ -24,7 +24,11 @@ app.use('/parts', partsRouter)
 
 app.use((err, req, res, next) => {
   console.error(err.stack)
-  return res.sendStatus(err.statusCode || 500)
+  return res.render('layout', {
+    page: 'pages/error',
+    title: 'Error',
+    message: err.message
+  })
 })
 
 const port = process.env.PORT || 3000

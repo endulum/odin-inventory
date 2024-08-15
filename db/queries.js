@@ -3,7 +3,13 @@ const pool = require('./pool')
 const queries = {}
 
 async function queryWithCatch(...args) {
-  return pool.query(...args).catch(e => console.error(e))
+  return pool.query(...args)
+    .catch(e => {
+      console.error(e)
+      if (e.code === 'ECONNREFUSED') {
+        throw new Error('The database cannot be accessed at this time.')
+      } else throw new Error('Something went wrong while accessing the database.')
+    })
 }
 
 queries.getAllCategories = async function() {
