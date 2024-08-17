@@ -1,20 +1,9 @@
-<h1>Browse Parts</h1>
-
 <form action="/parts" method="get" class="parts-search">
   <label for="name"><b>Part name</b></label>
   <input type="text" name="name" id="name" value=<%= locals.query.name %>>
   
   <label for="category"><b>Category</b></label>
-  <select name="category" id="category">
-    <option value="">Any</option>
-    <% locals.categories.forEach((category) => { %>
-      <option value=<%= category.name %> <%= category.name === locals.query.category && 'selected' %>>
-        <%= category.name %>
-      </option>
-    <% }) %>
-  </select>
-  
-  
+  <%- include('../components/categories-dropdown') %>
 
   <label for="sortBy"><b>Sort by</b></label>
   <select name="sortBy" id="sortBy">

@@ -1,0 +1,11 @@
+<select name="category" id="category">
+  <% if (categoryDropdown.includeAny) { %>
+    <option value="">Any</option>
+  <% } %>
+  <% categoryDropdown.list.forEach((category)=> { %>
+    <option value=<%=category.name %>
+    <%= category.name===locals.query.category && 'selected' %>>
+        <%= category.name %>
+    </option>
+    <% }) %>
+</select>

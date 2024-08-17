@@ -14,11 +14,12 @@ categoryController.getAllCategories = asyncHandler(async (req, res) => {
 
 categoryController.getCategoryById = asyncHandler(async (req, res) => {
   const category = await queries.getCategoryById(req.params.id)
-  if (!category) return res.sendStatus(404)
+  console.log(category)
   return res.render('layout', {
     page: 'pages/category',
     title: 'Category Details',
-    category
+    category,
+    parts: category.parts
   })
 })
 
