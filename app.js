@@ -3,6 +3,8 @@ require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const logger = require('morgan')
+
+const indexRouter = require('./routes/indexRouter')
 const categoriesRouter = require('./routes/categoriesRouter')
 const partsRouter = require('./routes/partsRouter')
 
@@ -12,13 +14,7 @@ app.set('view engine', 'ejs')
 app.use(logger('dev'))
 app.use(express.static(path.join(__dirname, "public")))
 
-app.get('/', (req, res) => {
-  return res.render('layout', {
-    page: 'pages/index',
-    title: 'Index'
-  })
-})
-
+app.use('/', indexRouter)
 app.use('/categories', categoriesRouter)
 app.use('/parts', partsRouter)
 
